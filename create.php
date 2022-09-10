@@ -134,6 +134,7 @@
 
           // var_dump($_POST);
           // die;
+          
 
           if(isset($_POST['submit'])){
             if(store($_POST)>0){
