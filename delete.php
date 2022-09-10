@@ -2,6 +2,7 @@
 
 require "function.php";
 
+
 // var_dump($_GET["id"]);
 
 // destroy($_GET["id"]);    
