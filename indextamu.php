@@ -1,3 +1,11 @@
+<?php 
+require 'function.php';
+$visitors = query('SELECT * FROM visitors');
+
+
+ ?>
+
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -103,11 +111,11 @@
             <div class="card">
                 <div class="card-header">
                 <div class="row d-flex">
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                         <h3>Visitors</h3>
                         </div>
-                        <div class="col-md-2">
-                          <a href="create.php" class="btn btn-primary">Add Visitors</a>
+                        <div class="col-md-3">
+                          <a style="margin-right: -15rem;" href="create.php" class="btn btn-primary">Add Visitors</a>
                         </div>
                     </div>
                 </div>
@@ -117,30 +125,31 @@
                         <tr>
                         <th scope="col">No</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Instansi</th>
                         <th scope="col">Keperluan</th>
                         <th scope="col">Alamat</th>
                         <th scope="col" colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                      <?php 
+                      $i = 1;
+                      
+                      ?>
+                      <?php 
+                      foreach($visitors as $key => $visitor ); ?>
                         <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td><a href="#" class="btn btn-danger">Delete</a> <a href="#" class="btn btn-warning">Edit</a></td>
+                        <th scope="row"><?=$i; ?>
+                      </th>
+                        <td><?= $visitor['visitor_name']?></td>
+                        <td><?= $visitor['instansi']?></td>
+                        <td><?= $visitor['keperluan']?></td>
+                        <td><?= $visitor['alamat']?></td>
+                        <td><button href="update.php?id=<?= $visitor['id'] ?>" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+                        <button href="#" class="btn btn-warning">Edit</button></td>
                         </tr>
                         <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
+                          <?php $i++; ?>
                     </tbody>
                     </table>
                 </div>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -105,7 +106,7 @@
                 <h3>Add Visitors</h3>
               </div>
             <div class="card-body">
-              <form method="POST">
+              <form action='' method="POST">
                 <div class="mb-3">
                   <label for="text" class="form-label">Visitor Name</label>
                   <input type="text" name="visitor_name" class="form-control" placeholder="Visitor Name" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -123,22 +124,38 @@
                   <textarea class="form-control" type="text" name="alamat" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <button type="submit" name="proses" class="btn btn-primary">Create Visitors</button>
+                  <button type="submit" name="submit" class="btn btn-primary">Create Visitors</button>
                   <a href="indextamu.php" type="submit" class="btn btn-danger ms-3">Back</a>
                 </div>
               </form>
 
               <?php 
-              include 'koneksi.php';
-              
-              if (isset($_POST['proses'])){
-                mysqli_query($koneksi, "insert into visitors set 
-                visitor_name = '$_POST[visitor_name]',
-                instansi = '$_POST[instansi]',
-                keperluan = '$_POST[keperluan]',
-                alamat = '$_POST[alamat]'");
-              }
-              ?>
+          require 'function.php';
+
+          // var_dump($_POST);
+          // die;
+
+          if(isset($_POST['submit'])){
+            if(store($_POST)>0){
+              echo "<script>
+              alert('data berhasil ditambahkan');
+              document.location.href = 'indextamu.php';
+              </script>";
+            }else{
+              echo "<script>
+              alert('data gagal ditambahkan');
+              document.location.href = 'indextamu.php';
+              </script>";
+            }
+          }
+          // if (isset($_POST['proses'])){
+          //   mysqli_query($koneksi, "insert into visitors set 
+          //   visitor_name = '$_POST[visitor_name]',
+          //   instansi = '$_POST[instansi]',
+          //   keperluan = '$_POST[keperluan]',
+          //   alamat = '$_POST[alamat]'");
+          // }
+          ?>
 
 
             </div>
