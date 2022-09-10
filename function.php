@@ -42,4 +42,23 @@
         mysqli_query($conn, "DELETE FROM visitors WHERE id=".$id);
         return mysqli_affected_rows($conn);
     }
+    
+    function update($edit){
+        global $conn;
+
+        $id = $edit["id"];
+        $visitor_name = htmlspecialchars($edit['visitor_name']);
+        $instansi = htmlspecialchars($edit['instansi']);
+        $keperluan = htmlspecialchars($edit['keperluan']);
+        $alamat = htmlspecialchars($edit['alamat']);
+
+        $query = "UPDATE visitors SET visitor_name = '$visitor_name', instansi = '$instansi', keperluan = '$keperluan', alamat = '$alamat' WHERE id= $id";
+        var_dump($query);
+        // die;
+        mysqli_query($conn, $query);
+        
+        var_dump(mysqli_affected_rows($conn));
+        // die;
+        return mysqli_affected_rows($conn);
+    }
 ?>

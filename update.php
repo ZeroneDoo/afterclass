@@ -15,6 +15,24 @@ $data = query("SELECT * FROM visitors WHERE id=".$_GET['id'])[0];
 //     var_dump($data[0]);
 //     die
 
+// var_dump($_POST);
+// die;
+
+if(isset($_POST['submit'])){
+    // update($_POST);
+    if(update($_POST)>0){
+        echo "<script>
+        alert('data berhasil di ubah');
+        document.location.href = 'indextamu.php';
+        </script>";
+    }else{
+        echo "<script>
+        alert('data gagal ditambahkan');
+        document.location.href = 'indextamu.php';
+        </script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 
@@ -140,39 +158,12 @@ $data = query("SELECT * FROM visitors WHERE id=".$_GET['id'])[0];
                   <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
                   <textarea class="form-control" type="text" name="alamat" id="exampleFormControlTextarea1" rows="3"><?= $data['alamat'] ?></textarea>
                 </div>
+                <input type="hidden" value="<?= $data['id'] ?>" name="id">
                 <div class="d-flex justify-content-end">
-                  <button type="submit" name="submit" class="btn btn-primary">Create Visitors</button>
+                  <button type="submit" name="submit" class="btn btn-primary">Update Visitors</button>
                   <a href="indextamu.php" type="submit" class="btn btn-danger ms-3">Back</a>
                 </div>
               </form>
-
-              <?php 
-          require 'function.php';
-
-          // var_dump($_POST);
-          // die;
-
-          if(isset($_POST['submit'])){
-            if(store($_POST)>0){
-              echo "<script>
-              alert('data berhasil di ubah');
-              document.location.href = 'indextamu.php';
-              </script>";
-            }else{
-              echo "<script>
-              alert('data gagal di ubah');
-              document.location.href = 'indextamu.php';
-              </script>";
-            }
-          }
-          // if (isset($_POST['proses'])){
-          //   mysqli_query($koneksi, "insert into visitors set 
-          //   visitor_name = '$_POST[visitor_name]',
-          //   instansi = '$_POST[instansi]',
-          //   keperluan = '$_POST[keperluan]',
-          //   alamat = '$_POST[alamat]'");
-          // }
-          ?>
 
 
             </div>
