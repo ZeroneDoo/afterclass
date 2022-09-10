@@ -34,4 +34,12 @@
 
         return $rows;
     }
+
+    function destroy($id){
+        // var_dump($id);
+        global $conn;
+
+        mysqli_query($conn, "DELETE FROM visitors WHERE id=".$id);
+        return mysqli_affected_rows($conn);
+    }
 ?>

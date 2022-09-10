@@ -1,11 +1,21 @@
 <?php 
 require 'function.php';
-$visitors = query('SELECT * FROM visitors');
 
+var_dump($_GET['id']);
 
- ?>
+$data = query("SELECT * FROM visitors WHERE id=".$_GET['id'])[0];
 
+// $data = [
+//     [
+//     'name' => 'asasd'
+//     ],[
+//         'name' => 'ads'
+//     ]
+// ];
+//     var_dump($data[0]);
+//     die
 
+?>
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -106,66 +116,68 @@ $visitors = query('SELECT * FROM visitors');
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              
+
             <div class="container">
             <div class="card">
-                <div class="card-header">
-                <div class="row d-flex">
-                        <div class="col-md-9">
-                        <h3>Visitors</h3>
-                        </div>
-                        <div class="col-md-3">
-                          <a style="margin-right: -15rem;" href="create.php" class="btn btn-primary">Add Visitors</a>
-                        </div>
-                    </div>
+              <div class="card-header">
+                <h3>Add Visitors</h3>
+              </div>
+            <div class="card-body">
+              <form action='' method="POST">
+                <div class="mb-3">
+                  <label for="text" class="form-label">Visitor Name</label>
+                  <input type="text" name="visitor_name" value="<?= $data['visitor_name'] ?>" class="form-control" placeholder="Visitor Name" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="card-body">
-                <table class="table table-hover table-responsive table-borderless">
-                    <thead class="table-primary">
-                        <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Instansi</th>
-                        <th scope="col">Keperluan</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col" colspan="2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <?php 
-                      if(count($visitors)>0):
-                      ?>
-                      <?php 
-                      $i = 1;
-                      
-                      ?>
-                      <?php 
-                      foreach($visitors as $key => $visitor ); ?>
-                        <tr>
-                        <th scope="row"><?=$i; ?>
-                      </th>
-                        <td><?= $visitor['visitor_name']?></td>
-                        <td><?= $visitor['instansi']?></td>
-                        <td><?= $visitor['keperluan']?></td>
-                        <td><?= $visitor['alamat']?></td>
-                        <td><a onclick="return confirm('apakah anda ingin menghapus data ini?')" href="delete.php?id=<?= $visitor['id'] ?>" class="btn btn-danger" style="margin-right: 10px;">Delete</a>
-                        <a href="update.php?id=<?= $visitor['id'] ?>" class="btn btn-warning">Edit</a></td>
-                        </tr>
-                        <tr>
-                          <?php $i++; ?>
-                          <?php 
-                          endif
-                          ?>
-                    </tbody>
-                    </table>
+                <div class="mb-3">
+                  <label for="text" class="form-label">Instansi</label>
+                  <input type="text" name="instansi" value="<?= $data['instansi'] ?>" class="form-control" placeholder="Instansi" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
+                <div class="mb-3">
+                  <label for="text" class="form-label">Keperluan</label>
+                  <input type="text" name="keperluan" value="<?= $data['keperluan'] ?>" class="form-control" placeholder="Keperluan" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
+                  <textarea class="form-control" type="text" name="alamat" id="exampleFormControlTextarea1" rows="3"><?= $data['alamat'] ?></textarea>
                 </div>
-               
-                      
-                
-                
-            
+                <div class="d-flex justify-content-end">
+                  <button type="submit" name="submit" class="btn btn-primary">Create Visitors</button>
+                  <a href="indextamu.php" type="submit" class="btn btn-danger ms-3">Back</a>
+                </div>
+              </form>
+
+              <?php 
+          require 'function.php';
+
+          // var_dump($_POST);
+          // die;
+
+          if(isset($_POST['submit'])){
+            if(store($_POST)>0){
+              echo "<script>
+              alert('data berhasil di ubah');
+              document.location.href = 'indextamu.php';
+              </script>";
+            }else{
+              echo "<script>
+              alert('data gagal di ubah');
+              document.location.href = 'indextamu.php';
+              </script>";
+            }
+          }
+          // if (isset($_POST['proses'])){
+          //   mysqli_query($koneksi, "insert into visitors set 
+          //   visitor_name = '$_POST[visitor_name]',
+          //   instansi = '$_POST[instansi]',
+          //   keperluan = '$_POST[keperluan]',
+          //   alamat = '$_POST[alamat]'");
+          // }
+          ?>
+
+
+            </div>
+          </div>
+            </div>
             </div>
             <!-- /Content -->
 
